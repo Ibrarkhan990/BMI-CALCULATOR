@@ -13,7 +13,7 @@
 
     <meta name="description" content="Calculate your Body Mass Index (BMI) accurately with our free online BMI Calculator. Check if you are underweight, normal, or overweight based on your age, gender, and height." />
     <meta name="keywords" content="BMI Calculator, Body Mass Index, Weight Loss Calculator, Health Tracker, BMI Chart, Ideal Weight" />
-    <link rel="manifest" href="manifest.json">
+    
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
@@ -323,40 +323,15 @@
 
     </div>
     
-    <script src="Script.js">
-         <script>
-    // Register Service Worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js');
-    }
-
-    let deferredPrompt;
-    const installBtn = document.getElementById('installBtn');
-
-    // Listen for install prompt
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-
-      // Show install button / popup trigger
-      installBtn.style.display = 'block';
-
-      // OPTIONAL: auto prompt after few seconds
-      setTimeout(() => {
-        deferredPrompt.prompt();
-      }, 3000);
+    <script src="Script.js"></script> <script>
+  // Service Worker Registration
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(reg => console.log('Service Worker registered!', reg))
+        .catch(err => console.log('Service Worker registration failed:', err));
     });
-
-    // Manual install button
-    installBtn.addEventListener('click', () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(() => {
-          deferredPrompt = null;
-        });
-      }
-    });
-  </script>
-    </script>
+  }
+</script>
 </body>
 </html>
