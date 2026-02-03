@@ -6,7 +6,7 @@ const ASSETS_TO_CACHE = [
   '/Script.js',
   '/manifest.json',
   '/icon1.png',
-  '/icon2.png'
+  '/icon2.jpg'
 ];
 
 // Install Event - Cache Files
