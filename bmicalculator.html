@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator - Check Your Body Mass Index & Health Score</title>
+    
+    <link rel="stylesheet" href="StyleSheet.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <meta name="description" content="Calculate your Body Mass Index (BMI) accurately with our free online BMI Calculator. Check if you are underweight, normal, or overweight based on your age, gender, and height." />
+    <meta name="keywords" content="BMI Calculator, Body Mass Index, Weight Loss Calculator, Health Tracker, BMI Chart, Ideal Weight" />
+    <link rel="manifest" href="manifest.json">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Calculate your Body Mass Index (BMI) accurately with our free online BMI Calculator. Check if you are underweight, normal, or overweight based on your age, gender, and height." />
+    <meta name="keywords" content="BMI Calculator, Body Mass Index, Weight Loss Calculator, Health Tracker, BMI Chart, Ideal Weight" />
+    <meta name="author" content="Your Website Name" />
+    <meta name="robots" content="index, follow" />
+
+    <meta property="og:title" content="Free BMI Calculator - Check Your Health Score" />
+    <meta property="og:description" content="Calculate your BMI easily. Enter your details to get a personalized health assessment." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.yourwebsite.com/default.aspx" />
+    <meta property="og:image" content="https://www.yourwebsite.com/images/bmi-thumbnail.jpg" />
+
+    <link rel="canonical" href="https://www.yourwebsite.com/default.aspx" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Free BMI Calculator",
+  "url": "https://www.yourwebsite.com/default.aspx",
+  "description": "Calculate your Body Mass Index (BMI) accurately with our free tool.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "All",
+  "featureList": "Calculate BMI, Metric and Imperial Units, Health Tips",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+</head>
+
+<body>
+    
+    <div class="main-wrapper">
+        <header class="professional-header">
+            <div class="header-content">
+                <div class="logo-area">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="text-area">
+                    <h1>BMI Calculator</h1>
+                    <p>Calculate your Body Mass Index and check your healthy weight range.</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="app-container">
+            
+            <div class="progress-container" id="progressContainer">
+                <span id="lblStep">Step 1 of 4</span>
+                <div class="progress-bar">
+                    <div id="progressBarFill" class="progress-fill" style="width: 25%;"></div>
+                </div>
+            </div>
+
+            <form id="bmiForm" onsubmit="return false;">
+                
+                <div id="step-0" class="step-section active">
+                    <div class="wizard-step fade-in">
+                        <h2>What is your sex?</h2>
+                        <div class="gender-selection">
+                            <button type="button" class="gender-card" onclick="selectGender('Male')">
+                                <i class="fas fa-male"></i>
+                                <span>Male</span>
+                            </button>
+                            <button type="button" class="gender-card" onclick="selectGender('Female')">
+                                <i class="fas fa-female"></i>
+                                <span>Female</span>
+                            </button>
+                        </div>
+                        <input type="hidden" id="hfGender">
+                    </div>
+                </div>
+
+                <div id="step-1" class="step-section" style="display: none;">
+                    <div class="wizard-step slide-in">
+                        <h2>How old are you?</h2>
+                        <div class="input-wrapper">
+                            <input type="number" id="txtAge" class="big-input" placeholder="0">
+                            <span class="unit">Years</span>
+                        </div>
+                        <div class="nav-buttons">
+                            <button type="button" class="btn-secondary" onclick="prevStep()">Back</button>
+                            <button type="button" class="btn-primary" onclick="nextStep()">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="step-2" class="step-section" style="display: none;">
+                    <div class="wizard-step slide-in">
+                        <h2>How tall are you?</h2>
+                        
+                        <div class="toggle-container">
+                            <div class="toggle-btn">
+                                <input type="radio" name="heightUnit" id="rbCm" value="cm" checked onchange="toggleHeightUnit()">
+                                <label for="rbCm">cm</label>
+                            </div>
+                            <div class="toggle-btn">
+                                <input type="radio" name="heightUnit" id="rbFt" value="ft" onchange="toggleHeightUnit()">
+                                <label for="rbFt">ft/in</label>
+                            </div>
+                        </div>
+
+                        <div id="pnlCm">
+                            <div class="input-wrapper">
+                                <input type="number" id="txtHeightCm" class="big-input" placeholder="170">
+                                <span class="unit">cm</span>
+                            </div>
+                        </div>
+
+                        <div id="pnlFt" style="display: none;">
+                            <div class="row-inputs">
+                                <div class="input-wrapper">
+                                    <input type="number" id="txtFt" class="big-input small" placeholder="5">
+                                    <span class="unit">ft</span>
+                                </div>
+                                <div class="input-wrapper">
+                                    <input type="number" id="txtIn" class="big-input small" placeholder="7">
+                                    <span class="unit">in</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nav-buttons">
+                            <button type="button" class="btn-secondary" onclick="prevStep()">Back</button>
+                            <button type="button" class="btn-primary" onclick="nextStep()">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="step-3" class="step-section" style="display: none;">
+                    <div class="wizard-step slide-in">
+                        <h2>How much do you weigh?</h2>
+                        
+                        <div class="toggle-container">
+                            <div class="toggle-btn">
+                                <input type="radio" name="weightUnit" id="rbKg" value="kg" checked>
+                                <label for="rbKg">kg</label>
+                            </div>
+                            <div class="toggle-btn">
+                                <input type="radio" name="weightUnit" id="rbLb" value="lb">
+                                <label for="rbLb">lb</label>
+                            </div>
+                        </div>
+
+                        <div class="input-wrapper">
+                            <input type="number" id="txtWeight" class="big-input" placeholder="0">
+                        </div>
+
+                        <div class="nav-buttons">
+                            <button type="button" class="btn-secondary" onclick="prevStep()">Back</button>
+                            <button type="button" class="btn-primary" onclick="calculateBMI()">Calculate BMI</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="step-4" class="step-section" style="display: none;">
+                    <div class="result-card bounce-in">
+                        <div class="header-result">
+                            <span id="lblResultTitle">Your BMI Result</span>
+                        </div>
+                        
+                        <div class="score-circle">
+                            <span id="lblBmiScore" class="score-text">0.0</span>
+                        </div>
+                        
+                        <span id="lblBmiCategory" class="category-badge">Normal</span>
+
+                        <div class="recommendation-box">
+                            <h4>Recommendation</h4>
+                            <p id="litRecommendation"></p>
+                        </div>
+
+                        <button type="button" class="btn-outline" onclick="restartCalculator()">Recalculate</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="seo-content-wrapper progress-container wizard-step slide-in">
+            <div class="seo-content">
+                <h2>What is Body Mass Index (BMI)?</h2>
+                <p>
+                    Body Mass Index (BMI) is a widely used health measurement that helps determine whether a person has a healthy body weight for their height. It is calculated using a simple formula:
+                    <br />
+                    <span class="boldtxt"> 
+                        BMI = weight (kg) ÷ height² (m²)
+                    </span>
+                    <br />
+                    BMI is commonly used by health professionals to screen for weight categories that may lead to health problems such as heart disease, diabetes, and high blood pressure.
+                </p>
+                <h3>Understanding Your BMI Result</h3>
+                <ul class="bmi-range-list">
+                    <li>
+                        <span class="category-dot underweight"></span>
+                        <div class="range-info">
+                            <strong>Underweight:</strong> 
+                            <span>BMI is less than 18.5</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="category-dot normal"></span>
+                        <div class="range-info">
+                            <strong>Normal weight:</strong> 
+                            <span>BMI is 18.5 to 24.9</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="category-dot overweight"></span>
+                        <div class="range-info">
+                            <strong>Overweight:</strong> 
+                            <span>BMI is 25 to 29.9</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="category-dot obese"></span>
+                        <div class="range-info">
+                            <strong>Obese:</strong> 
+                            <span>BMI is 30 or more</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <h3>Why Use Our BMI Calculator?</h3>
+                <p>
+                    Our free online BMI calculator is fast, accurate, and easy to use. It instantly calculates your BMI and helps you:
+                </p>
+                <ul>
+                    <li>Check if your weight is healthy</li>
+                    <li>Track weight loss or fitness progress</li>
+                    <li>Take the first step toward a healthier lifestyle</li>
+                </ul>
+                <p>
+                    Whether your goal is weight loss, fitness tracking, or general health awareness, our BMI calculator provides reliable results in seconds.
+                </p>
+            </div>
+        </div>
+        <footer class="modern-footer">
+        <div class="footer-container">
+            <div class="footer-row">
+                
+                <div class="footer-col brand-col">
+                    <h3 class="footer-heading">M Ibrar Khan</h3>
+                    <p class="footer-text">
+                        Professional Full Stack Developer dedicated to building modern web solutions. Join me to learn and grow in the tech world.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#about">About Me</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#services">Services</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5 class="footer-heading">Expertise</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">Javascript / react.js</a></li>
+                        <li><a href="#">UI/UX Design</a></li>
+                        <li><a href="#">SEO Optimization</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col contact-col">
+                    <h5 class="footer-heading">Contact Us</h5>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Bannu, Pakistan</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+92 332 6485172</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>ibrarkhanlk566@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="copyright-bar">
+            <p>&copy; 2026 <span>M Ibrar Khan</span>. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    </div>
+    
+    <script src="Script.js">
+         <script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+
+    // Listen for install prompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+
+      // Show install button / popup trigger
+      installBtn.style.display = 'block';
+
+      // OPTIONAL: auto prompt after few seconds
+      setTimeout(() => {
+        deferredPrompt.prompt();
+      }, 3000);
+    });
+
+    // Manual install button
+    installBtn.addEventListener('click', () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          deferredPrompt = null;
+        });
+      }
+    });
+  </script>
+    </script>
+</body>
+</html>
